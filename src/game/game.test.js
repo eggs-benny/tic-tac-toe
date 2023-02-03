@@ -23,7 +23,7 @@ describe('Game', () => {
 
       game.addSymbol([0,0]);
 
-      expect(() => game.addSymbol([0,0], 'X')).toThrow(Error)
+      expect(() => game.addSymbol([0,0])).toThrow(Error)
     })
   })
 
@@ -36,5 +36,36 @@ describe('Game', () => {
 
       expect(game.grid).toEqual([['O', null, null],[null, null, null],['X', null, 'O']]);
     })
+
+    it('allows a player to have a second attempt after an illegal move', () => {
+      const game = new Game();
+      game.takeTurn([0,0]);
+      expect(() => game.taketurn([0,0])).toThrow(Error)
+      game.takeTurn([0,1]);
+
+  
+
+      expect(game.grid).toEqual([['O', 'X', null],[null, null, null],[null, null, null]]);
+    })
   })
-})
+
+  describe('Game ends', () => {
+    describe('when grid is full', () => {
+      it('announces a draw', () => {
+        const game = new Game();
+        game.takeTurn([0,0]);
+        game.takeTurn([0,1]);
+        game.takeTurn([0,2]);
+        game.takeTurn([1,0]);
+        game.takeTurn([1,1]);
+        game.takeTurn([2,0]);
+        game.takeTurn([1,2]);
+        game.takeTurn([2,2]);
+        game.takeTurn([2,1]);
+      
+        expect(game.grid).toEqual([['O', 'X', 'O'],['X', 'O', 'O'],['X', 'O', 'X']]);
+        expect(game.endGame()).toEqual('Draw!')
+      })
+      })
+    })
+  })
