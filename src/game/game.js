@@ -4,7 +4,8 @@ class Game {
   }
 
   addSymbol(coords, symbol) {
-    this.grid = [['O', null, null],[null, null, null],[null, null, null]]
+    this.grid[coords[0]][coords[1]] = symbol
+    return this.grid
   }
 
 } 
