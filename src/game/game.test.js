@@ -1,4 +1,4 @@
-const Game = require("../game/game");
+const Game = require("./game");
 
 describe("Game", () => {
   describe("Turn one", () => {
@@ -52,7 +52,7 @@ describe("Game", () => {
     it("allows a player to have a second attempt after an illegal move", () => {
       const game = new Game();
       game.takeTurn([0]);
-      expect(() => game.taketurn([0])).toThrow(Error);
+      expect(() => game.addSymbol([0])).toThrow(Error);
       game.takeTurn([1]);
 
       expect(game.grid).toEqual([
@@ -83,40 +83,55 @@ describe("Game", () => {
           "X", "O", "X"
         ]);
         console.log(game.grid);
-        expect(game.endGame()).toEqual("Draw!");
+        expect(game.takeTurn()).toEqual("Draw!");
       });
     });
 
-      it("doesn't announce a draw if <9 moves", () => {
+      it("announces a win if 9 moves", () => {
         const game = new Game();
         game.takeTurn([0]);
-        game.takeTurn([1]);
         game.takeTurn([2]);
-        game.takeTurn([3]);
+        game.takeTurn([1]);
         game.takeTurn([4]);
-        game.takeTurn([6]);
         game.takeTurn([5]);
+        game.takeTurn([7]);
+        game.takeTurn([6]);
         game.takeTurn([8]);
+        game.takeTurn([3]);
 
         expect(game.grid).toEqual([
+          "O", "O", "X",
           "O", "X", "O",
-          "X", "O", "O",
-          "X", null, "X"
+          "O", "X", "X"
         ]);
         console.log(game.grid);
-        expect(game.endGame()).not.toEqual("Draw!");
+        expect(game.checkEndGame()).toEqual("We have a winner!");
+        expect(game.checkEndGame()).not.toEqual("Draw!");
       });
 
-    describe("when a player wins (horizontally)", () => {
-      it("announces a win and stops play", () => {
+    describe("when a player does not win", () => {
+      it("wont announce a win and stop play", () => {
         const game = new Game();
-        game.takeTurn([0]);
-        game.takeTurn([3]);
-        game.takeTurn([1]);
+        game.takeTurn([8]);
+        game.takeTurn([5]);
+        game.takeTurn([7]);
         game.takeTurn([4]);
-        game.takeTurn([2]);
+        game.takeTurn([1]);
 
-        expect(game.endGame()).toEqual("O wins!");
+        expect(game.checkEndGame()).not.toEqual("We have a winner!");
+      });
+    });
+
+    describe("when a player wins", () => {
+      it("announce a win and stop play", () => {
+        const game = new Game();
+        game.takeTurn([8]);
+        game.takeTurn([5]);
+        game.takeTurn([7]);
+        game.takeTurn([4]);
+        game.takeTurn([6]);
+
+        expect(game.checkEndGame()).toEqual("We have a winner!");
       });
     });
   });

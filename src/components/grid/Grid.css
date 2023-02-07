@@ -1,0 +1,21 @@
+.square {
+  background-color: #071a48;
+  border: 10px;
+  border-color: #ffffff;
+  color: white;
+  padding: 50px 75px;
+  margin: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 40px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
