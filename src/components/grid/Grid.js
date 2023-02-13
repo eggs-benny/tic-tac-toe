@@ -1,9 +1,8 @@
 import React from 'react';
 import './Grid.css';
-import Square from '../square/Square';
+import { Square } from '../Square/Square';
 
-class Grid extends React.Component {
-  render() {
+export function Grid() {
     return (
       <>
         <div className="row">
@@ -24,6 +23,3 @@ class Grid extends React.Component {
       </>
     );
   }
-}
-
-export default Grid;

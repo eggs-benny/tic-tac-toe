@@ -1,16 +1,18 @@
 import React from 'react';
 // import './Grid.css'
+import { useState } from 'react';
 
-class Square extends React.Component {
+export function Square() {
+const [player, setPlayer] = useState('-')
 
-  render() {
-    const {value} = this.props
+const handleButtonClick = (e) => {
+  if (player === "X") {
+  setPlayer("O") } else {setPlayer("X")}
+  e.preventDefault()
+}
     return (
       <div margin="">
-          <button className="square">{value}</button>
+          <button className="square" onClick={handleButtonClick}>{player}</button>
         </div>
     );
   }
-}
-
-export default Square;

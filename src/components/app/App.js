@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Grid from './../grid/Grid';
+import { Grid } from '../Grid/Grid';
 
-class App extends React.Component {
-  render() {
+export function App() {
+
     return (
       <div className="header">
         <h1>
@@ -17,6 +17,3 @@ class App extends React.Component {
       </div>
     );
   }
-}
-
-export default App;
